@@ -1,0 +1,714 @@
+const val TITLE = " Pawns-Only Chess"
+const val ROW_BORDER = "  +---+---+---+---+---+---+---+---+"
+const val EMPTY_ROW = "|   |   |   |   |   |   |   |   |"
+const val BLACK_ROW = "| B | B | B | B | B | B | B | B |"
+const val WHITE_ROW = "| W | W | W | W | W | W | W | W |"
+const val LAST_LINE = "    a   b   c   d   e   f   g   h"
+
+fun main() {
+    var countFirstStepB = 0
+    var countFirstStepW = 0
+    println(TITLE)
+    println("First Player's name:")
+    val inp1 = readln()
+    println("Second Player's name:")
+    val inp2 = readln()
+    /*println(ROW_BORDER)
+    println("8 $EMPTY_ROW")
+    println(ROW_BORDER)
+    println("7 $BLACK_ROW")
+    println(ROW_BORDER)
+    println("6 $EMPTY_ROW")
+    println(ROW_BORDER)
+    println("5 $EMPTY_ROW")
+    println(ROW_BORDER)
+    println("4 $EMPTY_ROW")
+    println(ROW_BORDER)
+    println("3 $EMPTY_ROW")
+    println(ROW_BORDER)
+    println("2 $WHITE_ROW")
+    println(ROW_BORDER)
+    println("1 $EMPTY_ROW")
+    println(ROW_BORDER)
+    println(LAST_LINE)
+    */
+
+
+    //создание матрицы
+
+    var newTable = mutableListOf<MutableList<Char>>()
+
+    fun tableTable() {
+        for (i in 8 downTo 1) {
+            println(ROW_BORDER)
+
+            if (i == 2) {
+                newTable.add("|W|W|W|W|W|W|W|W|".toMutableList())
+                print(2)
+                print(" ")
+                println(newTable[6].joinToString().replace(",", ""))
+            }
+            if (i == 7) {
+                newTable.add("|B|B|B|B|B|B|B|B|".toMutableList())
+                print(7)
+                print(" ")
+                println(newTable[1].joinToString().replace(",", ""))
+            }
+            if (i == 1) {
+                newTable.add("| | | | | | | | |".toMutableList())
+                print(1)
+                print(" ")
+                println(newTable[7].joinToString().replace(",", ""))
+            }
+            if (i == 3) {
+                newTable.add("| | | | | | | | |".toMutableList())
+                print(3)
+                print(" ")
+                println(newTable[5].joinToString().replace(",", ""))
+            }
+            if (i == 4) {
+                newTable.add("| | | | | | | | |".toMutableList())
+                print(4)
+                print(" ")
+                println(newTable[4].joinToString().replace(",", ""))
+            }
+            if (i == 5) {
+                newTable.add("| | | | | | | | |".toMutableList())
+                print(5)
+                print(" ")
+                println(newTable[3].joinToString().replace(",", ""))
+            }
+            if (i == 6) {
+                newTable.add("| | | | | | | | |".toMutableList())
+                print(6)
+                print(" ")
+                println(newTable[2].joinToString().replace(",", ""))
+            }
+            if (i == 8) {
+                newTable.add("| | | | | | | | |".toMutableList())
+                print(8)
+                print(" ")
+                println(newTable[0].joinToString().replace(",", ""))
+            }
+        }
+        println(ROW_BORDER)
+        println(LAST_LINE)
+    }
+    tableTable()
+
+//начало игры- ход каждого игрока
+    //ходит первый, пока не пойдет верно
+    var regex = "[a-h]{1}[1-8]{1}[a-h]{1}[1-8]{1}".toRegex()
+    loop@ while (true) {
+        var countStaleMate = 0
+        var inp3 = ""
+        var number = 0
+        var number2 = 0
+        loop3@ while (true) {
+            println("$inp1's turn:")
+            inp3 = readln().toString()
+
+            if (inp3 == "exit") {
+                println("Bye!")
+                break@loop
+            }
+            if (!inp3.matches(regex)) {
+                println("Invalid Input")
+                continue
+            }
+            if (inp3.matches(regex)) {
+                //println(inp3[1])
+                while (inp3[1] != '0') {
+                    if (inp3[1] == '1') {
+                        number = 7
+                        break
+                    }
+                    if (inp3[1] == '2') {
+                        number = 6
+                        break
+                    }
+                    if (inp3[1] == '3') {
+                        number = 5
+                        break
+                    }
+                    if (inp3[1] == '4') {
+                        number = 4
+                        break
+                    }
+                    if (inp3[1] == '5') {
+                        number = 3
+                        break
+                    }
+                    if (inp3[1] == '6') {
+                        number = 2
+                        break
+                    }
+                    if (inp3[1] == '7') {
+                        number = 1
+                        break
+                    }
+                    if (inp3[1] == '8') {
+                        number = 0
+                        break
+                    }
+                }
+
+                while (inp3[1] != '0') {
+                    if (inp3[0] == 'a') {
+                        number2 = 1
+                        break
+                    }
+                    if (inp3[0] == 'b') {
+                        number2 = 3
+                        break
+                    }
+                    if (inp3[0] == 'c') {
+                        number2 = 5
+                        break
+                    }
+                    if (inp3[0] == 'd') {
+                        number2 = 7
+                        break
+                    }
+                    if (inp3[0] == 'e') {
+                        number2 = 9
+                        break
+                    }
+                    if (inp3[0] == 'f') {
+                        number2 = 11
+                        break
+                    }
+                    if (inp3[0] == 'g') {
+                        number2 = 13
+                        break
+                    }
+                    if (inp3[0] == 'h') {
+                        number2 = 15
+                        break
+                    }
+                }
+
+
+                // первый ход белого
+                if (number == 6) {
+
+
+                    if (inp3[3] < inp3[1] || newTable[number - (inp3[3] - inp3[1])][number2] == 'B') {
+                        println("Invalid Input")
+                        continue
+                    }
+                    //если трюк - ход соседней пешкой
+                    if (countFirstStepB == 1) {
+                        countFirstStepB = -100
+
+                    }
+                    //обычный ход прямо для первого хода - один шаг
+                    if ((inp3[3] - inp3[1]) == 1 && inp3[0] == inp3[2]
+                        && newTable[number][number2] == 'W'
+                    ) {
+                        //println("okey ok")
+                        newTable[number][number2] = ' '
+                        newTable[number - 1][number2] = 'W'
+                        tableTable()
+                        break@loop3
+                    }
+                    //обычный ход прямо для первого хода - два шага - если рядом B
+                    if (inp3[3] - inp3[1] == 2 && inp3[0] == inp3[2] && number2 != 1
+                        && newTable[number][number2] == 'W' && newTable[number - 2][number2 - 2] == 'B'
+                    ) {
+                        //println("dva shaga")
+                        newTable[number][number2] = ' '
+                        newTable[number - 2][number2] = 'W'
+                        countFirstStepW++
+                        tableTable()
+                        break@loop3
+                    }
+
+                    //обычный ход прямо для первого хода - два шага
+                    if ((inp3[3] - inp3[1]) == 2 && inp3[0] == inp3[2]
+                        && newTable[number][number2] == 'W'
+                    ) {
+                        //println("okey ok")
+                        newTable[number][number2] = ' '
+                        newTable[number - 2][number2] = 'W'
+                        tableTable()
+                        break@loop3
+                    }
+                    // "No white pawn at "
+                    if (newTable[number][number2] != 'W' || newTable[number][number2] == 'B') {
+                        print("No white pawn at ")
+                        print("${inp3[0]}")
+                        println("${inp3[1]}")
+                        continue
+                    }
+                    if ((inp3[3] - inp3[1]) != 1 && inp3[3] - inp3[1] != 2) {
+                        println("Invalid Input")
+                        continue
+                    }
+                    //если ход по диагонали вправо
+
+                    if (inp3[3] - inp3[1] == 1 && inp3[2] - inp3[0] == 1
+                        && newTable[number][number2] == 'W'
+                        && newTable[number - 1][number2 + 2] == 'B'
+                    ) {
+                        //println("okey")
+                        newTable[number][number2] = ' '
+                        newTable[number - 1][number2 + 2] = 'W'
+                        tableTable()
+                        break@loop3
+                    }
+                    //если ход по диагонали влево
+                    if (inp3[3] - inp3[1] == 1 && inp3[0] - inp3[2] == 1
+                        && newTable[number][number2] == 'W'
+                        && newTable[number - 1][number2 - 2] == 'B'
+                    ) {
+                        //println("okey to left fight")
+                        newTable[number][number2] = ' '
+                        newTable[number - 1][number2 - 2] = 'W'
+                        tableTable()
+                        break@loop3
+                    }
+                } else {
+                    if (inp3[3] < inp3[1] || newTable[number - 1][number2] == 'B') {
+                        println("Invalid Input")
+                        continue
+                    }
+
+                    //если трюк после хода черными на два шага - не сделали ход по диагонали сразу
+                    if (countFirstStepB == 1 && newTable[number][number2 - 2] == 'B' && inp3[3] - inp3[1] != 1
+                        && inp3[0] - inp3[2] != 1
+                        && newTable[number][number2] == 'W'
+                    ) {
+                        countFirstStepB = -100
+                    }
+                    //если трюк после хода черными на два шага - сделали ход по диагонали сразу
+                    if (countFirstStepB == 1 && newTable[number][number2 - 2] == 'B' && inp3[3] - inp3[1] == 1
+                        && inp3[0] - inp3[2] == 1 && newTable[number][number2] == 'W'
+                    ) {
+                        countFirstStepB = -100
+                        newTable[number][number2] = ' '
+                        newTable[number - 1][number2 - 2] = 'W'
+                        newTable[number][number2 - 2] = ' '
+                        tableTable()
+                        break@loop3
+                    }
+                    //запрет на ход по диагонали, если пешка рядом
+                    if (countFirstStepB == -100 &&
+                        inp3[3] - inp3[1] == 1 && inp3[0] - inp3[2] == 1
+                        && newTable[number][number2] == 'W'
+                        && newTable[number][number2 - 2] == 'B'
+                    ) {
+                        println("Invalid Input")
+                        continue
+                    }
+
+                    //если обычный ход вперед
+                    if (((inp3[3] - inp3[1]) == 1 && inp3[0] == inp3[2]
+                                && newTable[number][number2] == 'W')
+                    ) {
+                        //println("okey")
+                        newTable[number][number2] = ' '
+                        newTable[number - 1][number2] = 'W'
+                        tableTable()
+                        break@loop3
+                    }
+
+                    //если ход по диагонали вправо
+
+                    if (inp3[3] - inp3[1] == 1 && inp3[2] - inp3[0] == 1
+                        && newTable[number][number2] == 'W'
+                        && newTable[number - 1][number2 + 2] == 'B'
+                    ) {
+                        //println("okey")
+                        newTable[number][number2] = ' '
+                        newTable[number - 1][number2 + 2] = 'W'
+                        tableTable()
+                        break@loop3
+                    }
+                    //если ход по диагонали влево
+                    if (inp3[3] - inp3[1] == 1 && inp3[0] - inp3[2] == 1
+                        && newTable[number][number2] == 'W'
+                        && newTable[number - 1][number2 - 2] == 'B'
+                    ) {
+                        //println("okey to left fight")
+                        newTable[number][number2] = ' '
+                        newTable[number - 1][number2 - 2] = 'W'
+                        tableTable()
+                        break@loop3
+                    }
+
+                    //"No white pawn at "
+
+                    if (newTable[number][number2] != 'W' || newTable[number][number2] == 'B') {
+                        print("No white pawn at ")
+                        print("${inp3[0]}")
+                        println("${inp3[1]}")
+                        continue
+                    }
+                    if (inp3[3] - inp3[1] != 1 || inp3[0] - inp3[2] >= 2 || inp3[2] - inp3[0] >= 2) {
+                        println("Invalid Input")
+                        continue
+                    } else {
+                        println("Invalid Input")
+                        continue
+                    }
+                }
+            }
+        }
+
+        //check if there is White Win after step
+        loop7@ while (true) {
+            if ((inp3[3] == '8' && newTable[0].contains('W'))
+                || (!newTable[0].contains('B')
+                        && !newTable[1].contains('B')
+                        && !newTable[2].contains('B')
+                        && !newTable[3].contains('B')
+                        && !newTable[4].contains('B')
+                        && !newTable[5].contains('B')
+                        && !newTable[6].contains('B')
+                        && !newTable[7].contains('B'))
+            ) {
+                println("White Wins!")
+                println("Bye!")
+                break@loop
+            } else {
+                break@loop7
+            }
+        }
+        //check if stalemate is
+        loop6@ while (true) {
+            if (newTable.joinToString().count { it == 'B' } == 1) {
+                for (i in newTable.indices) {
+                    for (j in 0..newTable[i].size) {
+                        if (newTable[i][j] == 'B' && newTable[i + 1][j] == 'W'
+                            && ((j > 0 && newTable[i + 1][j - 1] == ' ') ||
+                                    j < 7 && newTable[i + 1][j + 1] == ' ') ) {
+                            println(
+                                "Stalemate!\n" +
+                                        "Bye!"
+                            )
+                            break@loop
+                        } else {
+                            break@loop6
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+        //ходит второго, пока не пойдет верно
+        loop2@ while (true) {
+            println("$inp2's turn:")
+            inp3 = readln().toString()
+
+            if (inp3 == "exit") {
+                println("Bye!")
+                break@loop
+            }
+            if (!inp3.matches(regex)) {
+                println("Invalid Input")
+                continue
+            }
+            if (inp3.matches(regex)) {
+                //println(inp3[1])
+                while (inp3[1] != '0') {
+                    if (inp3[1] == '1') {
+                        number = 7
+                        break
+                    }
+                    if (inp3[1] == '2') {
+                        number = 6
+                        break
+                    }
+                    if (inp3[1] == '3') {
+                        number = 5
+                        break
+                    }
+                    if (inp3[1] == '4') {
+                        number = 4
+                        break
+                    }
+                    if (inp3[1] == '5') {
+                        number = 3
+                        break
+                    }
+                    if (inp3[1] == '6') {
+                        number = 2
+                        break
+                    }
+                    if (inp3[1] == '7') {
+                        number = 1
+                        break
+                    }
+                    if (inp3[1] == '8') {
+                        number = 0
+                        break
+                    }
+                }
+                //println(number)
+
+                while (inp3[1] != '0') {
+                    if (inp3[0] == 'a') {
+                        number2 = 1
+                        break
+                    }
+                    if (inp3[0] == 'b') {
+                        number2 = 3
+                        break
+                    }
+                    if (inp3[0] == 'c') {
+                        number2 = 5
+                        break
+                    }
+                    if (inp3[0] == 'd') {
+                        number2 = 7
+                        break
+                    }
+                    if (inp3[0] == 'e') {
+                        number2 = 9
+                        break
+                    }
+                    if (inp3[0] == 'f') {
+                        number2 = 11
+                        break
+                    }
+                    if (inp3[0] == 'g') {
+                        number2 = 13
+                        break
+                    }
+                    if (inp3[0] == 'h') {
+                        number2 = 15
+                        break
+                    }
+                }
+
+
+                //println(number2)
+                if (number == 1) {
+                    if (inp3[3] > inp3[1] || newTable[number + (inp3[1] - inp3[3])][number2] == 'W') {
+                        println("Invalid Input")
+                        continue
+                    }
+                    //если трюк - ход соседней пешкой
+                    if (countFirstStepW == 1) {
+                        countFirstStepW = -100
+                    }
+
+                    if (inp3[1] - inp3[3] == 1 && inp3[0] == inp3[2]
+                        && newTable[number][number2] == 'B'
+                    ) {
+                        newTable[number][number2] = ' '
+                        newTable[number + (inp3[1] - inp3[3])][number2] = 'B'
+                        tableTable()
+                        break@loop2
+                    }
+
+                    //обычный ход прямо для первого хода - два шага - если рядом W
+                    if (inp3[1] - inp3[3] == 2 && inp3[0] == inp3[2] && number2 != 15
+                        && newTable[number][number2] == 'B' && newTable[number + 2][number2 + 2] == 'W'
+                    ) {
+                        //println("dva shaga B")
+                        ++countFirstStepB
+                        newTable[number][number2] = ' '
+                        newTable[number + 2][number2] = 'B'
+                        tableTable()
+                        break@loop2
+                    }
+                    //обычный ход прямо для первого хода - два шага
+                    if (inp3[1] - inp3[3] == 2 && inp3[0] == inp3[2]
+                        && newTable[number][number2] == 'B'
+                    ) {
+                        newTable[number][number2] = ' '
+                        newTable[number + 2][number2] = 'B'
+                        tableTable()
+                        break@loop2
+                    }
+
+
+                    //"No black pawn at "
+                    if (newTable[number][number2] != 'B' || newTable[number][number2] == 'W') {
+                        print("No black pawn at ")
+                        print("${inp3[0]}")
+                        println("${inp3[1]}")
+                        continue
+                    }
+                    //если ход по диагонали - удар вправо
+                    if (inp3[1] - inp3[3] == 1 && inp3[2] - inp3[0] == 1
+                        && newTable[number][number2] == 'B'
+                        && newTable[number + 1][number2 + 2] == 'W'
+                    ) {
+                        newTable[number][number2] = ' '
+                        newTable[number + 1][number2 + 2] = 'B'
+                        tableTable()
+                        break@loop2
+
+                    }
+                    //удар по диагонали влево
+                    if (inp3[1] - inp3[3] == 1 && inp3[0] - inp3[2] == 1
+                        && newTable[number][number2] == 'B'
+                        && newTable[number + 1][number2 - 2] == 'W'
+                    ) {
+                        newTable[number][number2] = ' '
+                        newTable[number + 1][number2 - 2] = 'B'
+                        tableTable()
+                        break@loop2
+
+                    }
+                    if ((inp3[1] - inp3[3]) != 1 && inp3[1] - inp3[3] != 2) {
+                        println("Invalid Input")
+                        continue
+                    }
+
+
+                } else {
+                    if (inp3[1] < inp3[3] || newTable[number + 1][number2] == 'W') {
+                        println("Invalid Input")
+                        continue
+                    }
+                    //верный ход сразу по диагонали при W=1
+                    if (countFirstStepW == 1 && inp3[1] - inp3[3] == 1 && inp3[2] - inp3[0] == 1
+                        && newTable[number][number2] == 'B'
+                        && newTable[number][number2 + 2] == 'W'
+                    ) {
+                        newTable[number][number2] = ' '
+                        newTable[number + 1][number2 + 2] = 'B'
+                        newTable[number][number2 + 2] = ' '
+                        countFirstStepW = -100
+                        tableTable()
+                        break@loop2
+                    }
+                    // ход не сразу по диагонали при W=1
+                    if (countFirstStepW == 1 && newTable[number][number2 + 2] == 'W'
+                        && inp3[1] - inp3[3] != 1 && inp3[0] - inp3[2] != 1
+                        && newTable[number][number2] == 'B'
+                    ) {
+                        countFirstStepW = -100
+                    }
+                    //запрет на ход по диагонали, если пешка рядом
+                    if (countFirstStepW == -100 &&
+                        inp3[1] - inp3[3] == 1 && inp3[2] - inp3[0] == 1
+                        && newTable[number][number2] == 'B'
+                        && newTable[number][number2 + 2] == 'W'
+                    ) {
+                        println("Invalid Input")
+                        continue
+                    }
+                    //если обычный ход вперед
+                    if (((inp3[1] - inp3[3]) == 1 && inp3[0] == inp3[2]
+                                && newTable[number][number2] == 'B')
+                    ) {
+                        //println("okey")
+                        newTable[number][number2] = ' '
+                        newTable[number + 1][number2] = 'B'
+                        tableTable()
+                        break@loop2
+                    }
+
+
+                    //если ход по диагонали - удар вправо
+                    if (inp3[1] - inp3[3] == 1 && inp3[2] - inp3[0] == 1
+                        && newTable[number][number2] == 'B'
+                        && newTable[number + 1][number2 + 2] == 'W'
+                    ) {
+                        newTable[number][number2] = ' '
+                        newTable[number + 1][number2 + 2] = 'B'
+                        tableTable()
+                        break@loop2
+
+                    }
+                    //удар по диагонали влево
+                    if (inp3[1] - inp3[3] == 1 && inp3[0] - inp3[2] == 1
+                        && newTable[number][number2] == 'B'
+                        && newTable[number + 1][number2 - 2] == 'W'
+                    ) {
+                        newTable[number][number2] = ' '
+                        newTable[number + 1][number2 - 2] = 'B'
+                        tableTable()
+                        break@loop2
+
+                    }
+
+                    if (newTable[number][number2] != 'B' || newTable[number][number2] == 'W') {
+                        print("No black pawn at ")
+                        print("${inp3[0]}")
+                        println("${inp3[1]}")
+                        continue
+                    }
+                    if (inp3[1] - inp3[3] != 1 || inp3[0] - inp3[2] >= 2 || inp3[2] - inp3[0] >= 2) {
+                        println("Invalid Input")
+                        continue
+                    } else {
+                        println("Invalid Input")
+                        continue
+                    }
+                }
+            }
+        }
+
+        //check if there is Black Win after step
+        loop8@ while (true) {
+            if ((inp3[3] == '1' && newTable[7].contains('B'))
+                || (!newTable[0].contains('W')
+                        && !newTable[1].contains('W')
+                        && !newTable[2].contains('W')
+                        && !newTable[3].contains('W')
+                        && !newTable[4].contains('W')
+                        && !newTable[5].contains('W')
+                        && !newTable[6].contains('W')
+                        && !newTable[7].contains('W'))
+            ) {
+                println("Black Wins!")
+                println("Bye!")
+                break@loop
+            } else {
+                break@loop8
+            }
+        }
+        //check if stalemate is for W step
+        loop5@ while (true) {
+            if (newTable.joinToString().count { it == 'W' } == 1) {
+                for (i in newTable.indices) {
+                    for (j in 0..newTable[i].size) {
+                        if (newTable[i][j] == 'W' && newTable[i - 1][j] == 'B'
+                            && ((j > 0 && newTable[i - 1][j - 1] == ' ') ||
+                                    j < 7 && newTable[i - 1][j + 1] == ' ') ) {
+                            println(
+                                "Stalemate!\n" +
+                                        "Bye!"
+                            )
+                            break@loop
+                        } else {
+                            break@loop5
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
